@@ -35,7 +35,7 @@ export default function BuildingData() {
         return (
           <div
             key={id}
-            className="flex h-[70px] rounded-lg flex-col  w-[320px] text-gray-400 mt-3 gap-2 bg-[#F8F8F8]"
+            className="flex rounded-lg flex-col  w-full text-gray-400 mt-3 gap-2 bg-[#F8F8F8]"
           >
             <div className="flex items-center">
               <img src={image} width={70} className="p-2" alt="" />

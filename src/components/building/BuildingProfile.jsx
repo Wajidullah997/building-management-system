@@ -54,7 +54,6 @@ const BuildingProfile = () => {
   const [isAppartmentDataVisible, setAppartmentDataVisible] = useState(true);
   const [isDetailVisible, setDetailVisible] = useState(false);
   const [isAccountDetail, setAccountDetail] = useState(false);
-  const [promotionModal, setPromotionModal] = useState(false);
 
   const showApparmentDataInfo = () => {
     setAppartmentDataVisible(true);
@@ -106,13 +105,13 @@ const BuildingProfile = () => {
           </div>
           <div className="flex items-center mt-2 gap-5 p-2 w-full">
             <input
-              className="p-3 w-full border rounded-lg hover:border-blue-500"
+              className="p-3 w-full text-[13px] border rounded-lg hover:border-blue-500"
               type="email"
               placeholder="Email Address"
             />
             <BsSearch className="text-[#8B8B8B] ml-[-40px]" />
             <SecondaryButton
-              className={"h-[45px] font-bold text-lg !text-[25px]"}
+              className={"font-bold text-lg !text-[25px]"}
               isActive={true}
               onClick={() => {
                 setEditProfileModal1(true);

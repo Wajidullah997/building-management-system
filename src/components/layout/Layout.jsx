@@ -21,7 +21,7 @@
 
     export default function Layout() {
       return (
-        <div>
+        <div className="overflow-x-hidden">
           <Navbar />
           <Sidebar />
           <Outlet />

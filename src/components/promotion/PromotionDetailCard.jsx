@@ -10,7 +10,7 @@ export default function PromotionDetailCard() {
         <img className="" src={Promo5} alt="promo5" />
         {/* <BsThreeDotsVertical className="bg-white ml-[400px] mt-2 relative h-7 text-gray-500 p-1 rounded-lg w-[30px]" /> */}
       </div>
-      <div className="bg-[#F8F8F8] flex rounded-lg p-4 mt-[-30px] relative flex-col md:ml-6 w-[280px]">
+      <div className="bg-[#F8F8F8] flex rounded-lg p-4 mt-[-30px] relative flex-col 2xl:ml-[60px] md:ml-5 w-[280px]">
         <div className="flex items-center justify-between py-3">
           <ParagraphText className={"text-black font-bold"}>
             The Beach Suit

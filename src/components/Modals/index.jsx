@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { SecondaryButton } from "../UI/Button";
 import { BsSearch } from "react-icons/bs";
+import { db,storage } from "../../firebase";
+import { addDoc, collection } from "firebase/firestore";
 import mediafile from "../../assets/MediaFile.png";
 import list1 from "../../assets/list1.png";
 import img1 from "../../assets/editimg1.png";
@@ -30,6 +32,44 @@ const items = [
   },
 ];
 export const PromotionModal = ({ open, onClose }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [amount, setAmount] = useState("");
+  const [image, setImage] = useState([]);
+
+  const handleImageChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    setImages(selectedFiles);
+  };
+
+ const handleSubmit = async (e) => {
+   e.preventDefault();
+   try {
+     // Upload multiple images to Firebase Storage
+     const uploadTasks = image.map(async (image) => {
+       const storageRef = storage.ref();
+       const imageRef = storageRef.child(image.name);
+       await imageRef.put(image);
+       return imageRef.getDownloadURL();
+     });
+
+     // Get the download URLs of uploaded images
+     const imageUrls = await Promise.all(uploadTasks);
+
+     // Add data to Firestore
+     await db.collection("users").add({
+       title,
+       description,
+       amount,
+       images: imageUrls, // Save image URLs in Firestore
+     });
+
+     onClose(); // Close the modal after successful submission
+   } catch (error) {
+     console.error("Error adding document: ", error);
+   }
+ };
+
   return (
     <Modal
       open={open}
@@ -37,42 +77,55 @@ export const PromotionModal = ({ open, onClose }) => {
       title={"Add Promotion"}
       className={"flex flex-col bg-[#F8F8F8] overflow-x-hidden gap-10"}
     >
-      <div className="grid grid-cols-2 gap-2">
-        <div className="flex flex-col">
-          <ParagraphText className={"font-bold !text-[12px]"}>
-            Title
-          </ParagraphText>
-          <form>
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-2 gap-2 mt-2">
+          <div className="flex flex-col">
+            <ParagraphText className={"font-bold !text-[12px]"}>
+              Title
+            </ParagraphText>
             <input
               type="text"
               placeholder="write your name"
-              className="w-full bg-white h-[45px] rounded-lg"
+              className="w-full bg-white text-[13px] p-3 rounded-lg"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
-          </form>
-          <ParagraphText className={"font-bold !text-[12px] mt-4"}>
-            Add Media Files
-          </ParagraphText>
-          <TinyText>Add up to six vedios images</TinyText>
-          <div className="grid mt-2 grid-cols-3 p-1 gap-2 ">
-            <img width={50} className="ml-1 mt-[2px]" src={mediafile} alt="" />
-            <img width={60} src={mediafile1} alt="" />
-            <img width={60} src={mediafile1} alt="" />
-            <img width={60} src={mediafile1} alt="" />
-            <img width={60} src={mediafile1} alt="" />
-            <img width={60} src={mediafile1} alt="" />
+            <ParagraphText className={"font-bold !text-[12px] mt-4"}>
+              Add Media Files
+            </ParagraphText>
+            <TinyText>Add up to six vedios images</TinyText>
+            <div className="grid mt-2 grid-cols-3 p-1 gap-2 ">
+              {Array.from({ length: 6 }, (_, index) => (
+                <label key={index} className="cursor-pointer">
+                  <img
+                    width={50}
+                    className="ml-1 mt-[2px]"
+                    src={mediafile}
+                    alt=""
+                  />
+                  <input
+                    type="file"
+                    value={image}
+                    onChange={handleImageChange}
+                    style={{ display: "none" }}
+                    multiple
+                  />
+                </label>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col ">
-          <ParagraphText className={"font-bold !text-[12px]"}>
-            Fund Description
-          </ParagraphText>
-          <form>
+          <div className="flex flex-col ">
+            <ParagraphText className={"font-bold !text-[12px]"}>
+              Fund Description
+            </ParagraphText>
             <textarea
               placeholder="Describe the fund"
-              className="bg-white p-2 rounded-lg "
+              className="bg-white p-2 text-[13px] rounded-lg "
               name=""
               id=""
-              cols="22"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              cols="27"
               rows="4"
             ></textarea>
             <ParagraphText className={"!text-[10px] mt-3 font-bold"}>
@@ -81,18 +134,24 @@ export const PromotionModal = ({ open, onClose }) => {
             <div className="flex  items-center">
               <input
                 type="text"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
                 placeholder="Amount"
-                className=" p-2 rounded-lg h-[50px] bg-white "
+                className="  rounded-lg text-[13px] w-[385px] p-4 bg-white "
               />
               <p className="ml-[-35px] text-[10px] font-bold">USD</p>
             </div>
-          </form>
+          </div>
+          <SecondaryButton
+            className={"ml-[100px] w-full mr-[100px] "}
+            isActive={true}
+            onClick={onClose}
+            type="submit"
+          >
+            Add Promotion
+          </SecondaryButton>
         </div>
-      </div>
-      <SecondaryButton className={"ml-[100px] mr-[100px] "} isActive={true}
-      onClick={onClose}>
-        Add Promotion
-      </SecondaryButton>
+      </form>
     </Modal>
   );
 };
@@ -105,7 +164,7 @@ export const QueryAssignModal = ({ open, onClose }) => {
       open={open}
       onClose={onClose}
       title={"Assign Employee"}
-      className={"flex flex-col  gap-10"}
+      className={"flex flex-col bg-[#F8F8F8] gap-10"}
     >
       <div className="bg-gray-300 h-[1px]"></div>
       <div className="flex items-center  -mt-[10px] -mb-[30px] justify-center gap-1">
@@ -161,7 +220,7 @@ export const QueryAssignEmployeeModal = ({ open, onClose }) => {
       open={open}
       onClose={onClose}
       title={"Assign Employee"}
-      className={"flex flex-col  gap-10"}
+      className={"flex flex-col bg-[#F8F8F8] gap-10"}
     >
       <div className="bg-gray-300 h-[1px]"></div>
       <div className="flex items-center -mt-[10px] -mb-[10px] justify-center gap-1">
@@ -186,17 +245,17 @@ export const QueryAssignEmployeeModal = ({ open, onClose }) => {
           <textarea
             name=""
             placeholder="Add Location"
-            className="bg-[#F8F8F8] rounded-lg p-2"
+            className="bg-white rounded-lg text-[13px] p-2"
             id=""
-            cols="66"
-            rows="3"
+            cols="55"
+            rows="4"
           ></textarea>
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-2 gap-2">
             <div>
               <SubtitleText className={"text-black"}>Date</SubtitleText>
               <input
                 type="text"
-                className="bg-[#F8F8F8] p-4 rounded-lg"
+                className="bg-white w-[185px] text-[13px] p-5 rounded-lg"
                 placeholder="08/03/2018"
               />
             </div>
@@ -204,7 +263,7 @@ export const QueryAssignEmployeeModal = ({ open, onClose }) => {
               <SubtitleText className={"text-black"}>Date</SubtitleText>
               <input
                 type="text"
-                className="bg-[#F8F8F8]  p-4 rounded-lg "
+                className="bg-white  w-[185px] text-[13px] p-5 rounded-lg "
                 placeholder="08/03/2018"
               />
             </div>
@@ -260,6 +319,48 @@ export const EditProfileModal = ({ open, onClose }) => {
   );
 };
 export const EditProfileModal1 = ({ open, onClose }) => {
+const [image, setImage] = useState(null);
+const [userData, setUserData] = useState({
+  name: '',
+  email: '',
+  password: '',
+  location: '',
+  contact: '',
+});
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+    const handleImageChange = (e) => {
+      if (e.target.files[0]) {
+        setImage(e.target.files[0]);
+      }
+    };
+  const handleUserDataSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (image) {
+        const storageRef = storage.ref();
+        const imageRef = storageRef.child(image.name);
+        await imageRef.put(image);
+        const imageUrl = await imageRef.getDownloadURL();
+
+        setUserData((prevData) => ({
+          ...prevData,
+          profileImageUrl: imageUrl,
+        }));
+      }
+
+      await db.collection("users").add(userData);
+
+      onClose();
+    } catch (error) {
+      console.error("Error adding user data: ", error);
+    }
+  };
   return (
     <Modal
       open={open}
@@ -267,19 +368,29 @@ export const EditProfileModal1 = ({ open, onClose }) => {
       title={"Add Employee"}
       className={"flex flex-col  bg-[#F8F8F8]"}
     >
-      <img
-        width={65}
-        className="flex items-center justify-center -mb-1 mt-2 ml-[163px]"
-        src={profile}
-        alt=""
-      />
-      <UserBasicInfo />
-      <SecondaryButton isActive={true}>Next</SecondaryButton>
+      <form onSubmit={handleUserDataSubmit}>
+        <input type="file" onChange={handleImageChange} accept="image/*" />
+        {image && <img src={URL.createObjectURL(image)} className="w-[20%] ml-[150px]" alt="Preview" />}
+
+        <UserBasicInfo onChange={handleInputChange} />
+
+        <button type="submit">Submit</button>
+      </form>
+      {/* <SecondaryButton type="submit" isActive={true} onClose={onClose}>
+        Done
+      </SecondaryButton> */}
     </Modal>
   );
 };
 export const EditProfileModal2 = ({ open, onClose }) => {
   const [assignBuildingModal, setAssignBuildingModal] = useState(false);
+  const useDoc = (userData) => {
+    console.log("saving data in firebase", userData);
+  };
+  const handleUserDataSubmit = (userData) => {
+    useDoc(userData);
+    onClose();
+  };
   return (
     <Modal
       open={open}
@@ -299,7 +410,7 @@ export const EditProfileModal2 = ({ open, onClose }) => {
         src={profile}
         alt=""
       />
-      <UserBasicInfo />
+      <UserBasicInfo userType="Manager" onSubmit={handleUserDataSubmit} />
       <SecondaryButton
         className={"ml-[95px] mr-[95px]"}
         isActive={true}
@@ -318,8 +429,7 @@ export const EditProfileModal2 = ({ open, onClose }) => {
     </Modal>
   );
 };
-
-export const AssignBuildingModal = ({ open, onClose }) => {
+export const AssignBuildingModal = ({ managerData, open, onClose }) => {
   return (
     <Modal
       open={open}
@@ -335,7 +445,7 @@ export const AssignBuildingModal = ({ open, onClose }) => {
       </div>
       <div className="flex  items-center mt-2 mr-3">
         <input
-          className="p-3 flex-1 border rounded-lg hover:border-blue-500"
+          className="p-3 flex-1 text-[13px] border rounded-lg hover:border-blue-500"
           type="email"
           placeholder="Email Address"
         />

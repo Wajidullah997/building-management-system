@@ -9,17 +9,14 @@ export const HeadTitleText = ({ className, onClick, children, ...other }) => {
       {...other}
       onClick={onClick}
       className={clsx(
-        "text-[22px] lg:text-[26px] text-[#1A2D33] capitalize font-semibold break-words",
+        "text-[22px] lg:text-[23px] text-[#1A2D33] capitalize font-semibold break-words",
         className
       )}
     >
       {children}
     </div>
   );
-};
-
-
-
+}
 export const SubtitleText = ({ className, onClick, children, ...other }) => {
   return (
     <div
@@ -41,7 +38,7 @@ export const ParagraphText = ({ className, onClick, children, ...other }) => {
       {...other}
       onClick={onClick}
       className={clsx(
-        "text-[12px] lg:text-[16px] text-[#1A2D33] capitalize font-semi break-words",
+        "text-[12px] lg:text-[14px] text-[#1A2D33] capitalize font-semibold break-words",
         className
       )}
     >
@@ -70,6 +67,21 @@ export const TinyText = ({ className, onClick, children, ...other }) => {
       onClick={onClick}
       className={clsx(
         "text-[7px] lg:text-[9px] text-[#243B53] capitalize font-normal break-words",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+
+export const Input = ({ className, onClick, children, ...other }) => {
+  return (
+    <div
+      {...other}
+      onClick={onClick}
+      className={clsx(
+        "text-[13px] lg:text-[15px] text-[#5fbcd9] capitalize font-semibold break-words",
         className
       )}
     >

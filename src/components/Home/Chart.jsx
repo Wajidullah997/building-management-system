@@ -23,8 +23,8 @@ const Chart = () => {
     <div className="bg-white p-4 mt-3 rounded-lg ">
       <div className="flex justify-between items-center">
         <ParagraphText>Activity</ParagraphText>
-        <span className="text-[13px] cursor-pointer p-1 w-28 bg-[#22A2FF] rounded-lg text-white ">
-          <div className="flex items-center gap-2">
+        <span className="text-[13px] cursor-pointer p-2 w-28 bg-[#22A2FF] rounded-lg text-white ">
+          <div className="flex  whitespace-nowrap  items-center gap-2">
             Add Service
             <BsChevronCompactDown />
           </div>

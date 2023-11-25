@@ -52,7 +52,7 @@ export default function BuildingList() {
         </div>
         <div className="flex items-center mt-2">
           <input
-            className="p-3 w-full border rounded-lg hover:border-blue-500"
+            className="p-4 w-full text-[13px] border rounded-lg hover:border-blue-500"
             type="email"
             placeholder="Email Address"
           />

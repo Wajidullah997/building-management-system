@@ -10,7 +10,7 @@ export default function Building() {
       </div>
 
       <div className="w-full flex flex-col mt-4">
-        <BuildingProfile />
+        <BuildingProfile />z
       </div>
     </div>
   );

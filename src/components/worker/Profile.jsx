@@ -6,6 +6,7 @@ import { ParagraphText1, SubtitleText } from "../UI/Typography";
 import { PrimaryButton, SecondaryButton } from "../UI/Button";
 import UserBasicInfo from "./UserBasicInfo";
 import BuildingData from "./BuildingData";
+
 const Profile = () => {
   const [show,setShow] = useState(false)
   const [isBasicInfoVisible, setBasicInfoVisible] = useState(true);

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 //packages
 import clsx from "clsx";
-
+const SecondaryButton1 = () => {
+  const [change,setChange] = useState(false)
+}
+export default SecondaryButton1;
 export const SecondaryButton = ({
   className,
   type,

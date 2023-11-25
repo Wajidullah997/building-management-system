@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { SubtitleText } from '../UI/Typography';
 import {  BsThreeDotsVertical } from "react-icons/bs";
 
@@ -34,9 +34,10 @@ const items = [
     name: "Management App",
   },
 ];
-export default function ManagerProfile() {
+export default function ManagerProfile({ managerData, submittedUserData }) {
+  const [userData, setUserData] = useState(submittedUserData || {});
   return (
-    <div>
+    <>
       {items.map((elem) => {
         const { id, image, name } = elem;
         return (
@@ -52,6 +53,16 @@ export default function ManagerProfile() {
           </div>
         );
       })}
-    </div>
+      {Object.keys(userData).length > 0 && (
+        <div className="flex h-[60px] justify-between text-gray-400 mt-3 gap-2 bg-white items-center">
+          {/* Display the submitted user data */}
+          <div className="flex items-center">
+            <img src={userData.image} width={60} className="p-2" alt="" />
+            <SubtitleText className="text-black">{userData.name}</SubtitleText>
+          </div>
+          <BsThreeDotsVertical />
+        </div>
+      )}
+    </>
   );
 }

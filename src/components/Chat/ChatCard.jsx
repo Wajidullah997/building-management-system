@@ -7,7 +7,7 @@ const items = [
     name: "Sarah Johnson",
     time: "12:01 pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
+      "I can't Join, Sorry! I can't Join, Sorry!!!! Have Fun! this for fun only d",
     message: 4,
   },
   {
@@ -16,7 +16,7 @@ const items = [
     name: "Jane Carr",
     time: "11:54 pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
+      "Sorry! Have Fun!! this for fun only don't waorroy abou this is about ",
     message: 2,
   },
   {
@@ -25,8 +25,8 @@ const items = [
     name: "Mike Snith",
     time: "11:22pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
-    message: 1,
+      "I can't Join, Sorry!!!! Have Fun! this for fun only don'!t waorroy abou",
+    message: 5,
   },
   {
     id: 4,
@@ -34,7 +34,7 @@ const items = [
     name: "Angel Smith",
     time: "11:22pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
+      "I can't Join, Sorry! Have Fun! this for!!! fun only don't waorroy abou",
     message: 4,
   },
   {
@@ -43,8 +43,8 @@ const items = [
     name: "Kaiya Levin",
     time: "11:22pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
-    message: 1,
+      "I can't Join, Sorry! Have Fun! this for fun only !!!!don't waorroy abou",
+    message: 8,
   },
   {
     id: 4,
@@ -52,7 +52,7 @@ const items = [
     name: "Angel Smith",
     time: "11:22pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
+      "I can't Join, Sorry! Have Fun! this for fun only don't !!!waorroy abou",
     message: 4,
   },
   {
@@ -61,8 +61,8 @@ const items = [
     name: "Kaiya Levin",
     time: "11:22pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
-    message: 1,
+      "I can't Join, Sorry! Have Fun! this for fun only don't!!!! waorroy abou",
+    message: 2,
   },
   {
     id: 4,
@@ -70,7 +70,7 @@ const items = [
     name: "Angel Smith",
     time: "11:22pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
+      "I can't Join, Sorry! Have Fun! this for fun only!! don't waorroy abou",
     message: 4,
   },
   {
@@ -79,8 +79,8 @@ const items = [
     name: "Kaiya Levin",
     time: "11:22pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
-    message: 1,
+      "I can't Join, Sorry! Have Fun! this for fun only !!don't waorroy abou",
+    message: 3,
   },
   {
     id: 4,
@@ -88,7 +88,7 @@ const items = [
     name: "Angel Smith",
     time: "11:22pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
+      "I can't Join, Sorry! Have Fun! this for fun onl!y don't waorroy abou",
     message: 4,
   },
   {
@@ -97,8 +97,8 @@ const items = [
     name: "Kaiya Levin",
     time: "11:22pm",
     description:
-      "I can't Join, Sorry! Have Fun! this for fun only don't waorroy abou",
-    message: 1,
+      "I can't Join, Sorry! Have Fun! this for fun only!! don't waorroy abou",
+    message: 2,
   },
   {
     id: 6,
@@ -106,43 +106,42 @@ const items = [
     name: "Phillip Aminaoff",
     time: "11:22pm",
     description:
-      "This is for fun only I can't Join, Sorry! Have Fun! this for fun only",
+      "Sorry! Have Fun! this for fun only Sorry! Have Fun! this for fun only",
     message: 9,
   },
 ];
-
 export const ChatCard = () => {
   return (
-    <div className="py-2   overflow-x-hidden w-full justify-start flex flex-col  items-center gap-1 border-[1px] border-transparent border-slate-300">
+    <div className="py-2 overflow-x-hidden  flex flex-col  gap-1 border-[1px] border-transparent border-slate-300">
       {items.map((elem) => {
         const { id, image, name, description, time, message } = elem;
         return (
           <>
             <div
               key={id}
-              className="flex bg-white p-2 rounded-lg  items-center h-[50px] hover:bg-white gap-3 "
+              className="flex bg-white p-2 rounded-lg  items-center hover:bg-white gap-3 "
             >
               <img src={image} width={40} alt="" />
               <div className="flex flex-col">
-                <div className="flex justify-between items-center">
+                <div className="flex  justify-between items-center">
                   <ParagraphText
                     className={"!text-[11px] font-bold text-[#243B53]"}
                   >
                     {name}
                   </ParagraphText>
-                  <TinyText className={"!text-primary mr-[30px]"}>{time}</TinyText>
+                  <TinyText className={"!text-primary  mr-[60px] self-end"}>{time}</TinyText>
                 </div>
-                <div className="flex w-full justify-between items-center">
-                  <TinyText className="truncate w-[90%] mt-2 ">
+                <div className="flex w-[80%] justify-between items-center">
+                  <TinyText className="truncate w-[50%] mt-3">
                     {description}
                   </TinyText>
-                  {/* <TinyText
+                  <TinyText
                     className={
-                      "rounded-full px-1 py-[1px] bg-blue-300 !text-white"
+                      "rounded-full px-[4px] bg-blue-300 !text-white"
                     }
                   >
                     {message}
-                  </TinyText> */}
+                  </TinyText>
                 </div>
               </div>
             </div>

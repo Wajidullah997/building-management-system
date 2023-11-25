@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { SecondaryButton } from "../UI/Button";
 import { HeadTitleText, ParagraphText, SubtitleText } from "../UI/Typography";
 import { PromotionModal } from "../Modals";
@@ -38,6 +38,25 @@ const items = [
 ];
 export default function PromotionDetail() {
   const [promotionModal, setPromotionModal] = useState(false);
+  const [promotions, setPromotions] = useState([]);
+  useEffect(() => {
+    // Fetch promotions data from Firestore
+    const fetchPromotions = async () => {
+      try {
+        const snapshot = await db.collection("users").get();
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPromotions(data);
+      } catch (error) {
+        console.error("Error fetching promotions: ", error);
+      }
+    };
+
+    fetchPromotions();
+  }, []); // Run once on component mount
+
   return (
     <div className="flex flex-col p-4 bg-white w-full rounded-lg">
       <div className="flex gap-3 mt-2  justify-between">
@@ -52,18 +71,18 @@ export default function PromotionDetail() {
         </SecondaryButton>
       </div>
       <div className="grid grid-cols-2 gap-8 mt-2">
-        {items.map((elem) => {
-          const { id, image, name } = elem;
+        {promotions.map((promotion) => {
+          const { id, image, name, description,number,data } = promotion;
           return (
             <div key={id} className="flex flex-col gap-2">
               <img src={image} alt="" />
               <div className="flex justify-between">
                 <div className="flex flex-col">
                   <ParagraphText>{name}</ParagraphText>
-                  <SubtitleText>Their is One Washroom Two</SubtitleText>
-                  <SubtitleText>Offices Three</SubtitleText>
+                  <SubtitleText>{description}</SubtitleText>
+                  <SubtitleText>{number}</SubtitleText>
                 </div>
-                <SubtitleText>11/22/2018</SubtitleText>
+                <SubtitleText>{data}</SubtitleText>
               </div>
             </div>
           );

@@ -4,10 +4,11 @@ import list1 from '../../assets/chat.png'
 import search from '../../assets/chatsearch.png'
 import {HiOutlinePhoneMissedCall} from 'react-icons/hi'
 import { ParagraphText ,SubtitleText,TinyText} from '../UI/Typography';
+import ChatsCard from './ChatsCard';
 export default function Chats() {
   return (
-    <div className="w-full h-[calc(100vh-100px)] relative bg-white rounded-lg  pb-5">
-      <div className="relative flex gap-3 items-center p-3 border border-transparent border-b-slate-300">
+    <div className="w-full h-[calc(100vh-100px)] relative bg-white rounded-lg  pb-3">
+      <div className="relative flex gap-3 items-center p-2 border border-transparent border-b-slate-300">
         <img src={list1} width={50} className="" alt="" />
         <div className="flex items-center w-full justify-between">
           <ParagraphText className={"!text-[14px]"}>Sarah Johson</ParagraphText>
@@ -18,54 +19,21 @@ export default function Chats() {
         <SubtitleText className={"flex !items-center justify-center"}>
           Today 10:27am
         </SubtitleText>
-        <div className="bg-[#F2F2F2] flex flex-col self-start rounded-tl-lg rounded-tr-lg rounded-br-lg p-2">
-          <SubtitleText className={"text-start pr-6"}>Hello this is waijfbfhfgdbbfhjvf</SubtitleText>
-          <TinyText className={"text-end pl-6 mt-1"}>8:00 PM</TinyText>
-        </div>
-        <div className="bg-[#22A2FF] flex flex-col self-end rounded-t-lg rounded-l-lg p-2">
-          <SubtitleText className={"!text-white text-start pr-6"}>
-            Hello world this is wajid
-          </SubtitleText>
-          <TinyText className={"!text-white text-end pl-6"}>8:00 PM</TinyText>
-        </div>
-        <div className="bg-[#F2F2F2] flex flex-col self-start rounded-tl-lg rounded-tr-lg rounded-br-lg p-2">
-          <SubtitleText className={"text-start pr-6"}>Hello</SubtitleText>
-          <TinyText className={"text-end pl-6"}>8:00 PM</TinyText>
-        </div>
-        <div className="bg-[#22A2FF] flex flex-col self-end rounded-t-lg rounded-l-lg p-2">
-          <SubtitleText className={"!text-white text-start pr-6"}>
-            Hello world this is wajid
-          </SubtitleText>
-          <TinyText className={"!text-white text-end pl-6"}>8:00 PM</TinyText>
-        </div>
+
+        <ChatsCard />
+        <ChatsCard />
         <SubtitleText className={"flex !items-center justify-center"}>
           Yesterday 12:20pm
         </SubtitleText>
-
-        <div className="bg-[#F2F2F2] flex flex-col self-start rounded-tl-lg rounded-tr-lg rounded-br-lg p-2">
-          <SubtitleText className={"text-start pr-6"}>Hello</SubtitleText>
-          <TinyText className={"text-end pl-6"}>8:00 PM</TinyText>
-        </div>
-        <div className="bg-[#22A2FF] flex flex-col self-end rounded-t-lg rounded-l-lg p-2">
-          <SubtitleText className={"!text-white text-start pr-6"}>
-            Hello world this is wajid from charsadda
-          </SubtitleText>
-          <TinyText className={"!text-white text-end pl-6"}>8:00 PM</TinyText>
-        </div>
-        <div className="bg-[#F2F2F2] flex flex-col self-start rounded-tl-lg rounded-tr-lg rounded-br-lg p-2">
-          <SubtitleText className={"text-start pr-6"}>Hello</SubtitleText>
-          <TinyText className={"text-end pl-6"}>8:00 PM</TinyText>
-        </div>
-        <div className="bg-[#22A2FF] flex flex-col self-end rounded-t-lg rounded-l-lg p-2">
-          <SubtitleText className={"!text-white text-start pr-6"}>
-            Hello world this is wajid
-          </SubtitleText>
-          <TinyText className={"!text-white text-end pl-6"}>8:00 PM</TinyText>
-        </div>
+        <ChatsCard />
+        <ChatsCard />
+        <ChatsCard />
+        <ChatsCard />
+        <ChatsCard />
       </div>
       <div className="flex items-center">
         <input
-          className="p-3 w-full border rounded-lg hover:border-blue-500"
+          className="p-3 w-full text-[13px] border rounded-lg hover:border-blue-500"
           type="text"
           placeholder="Write message ..."
         />
