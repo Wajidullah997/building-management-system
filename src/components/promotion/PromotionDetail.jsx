@@ -71,7 +71,7 @@ export default function PromotionDetail() {
         </SecondaryButton>
       </div>
       <div className="grid grid-cols-2 gap-8 mt-2">
-        {promotions.map((promotion) => {
+        {items.map((promotion) => {
           const { id, image, name, description,number,data } = promotion;
           return (
             <div key={id} className="flex flex-col gap-2">

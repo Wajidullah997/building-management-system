@@ -1,5 +1,5 @@
-import React, {useState,useEffect} from 'react'
-import { SubtitleText,TinyText } from "../UI/Typography";
+import React from "react";
+import { SubtitleText, TinyText } from "../UI/Typography";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 const items = [
@@ -35,45 +35,26 @@ const items = [
   },
 ];
 export default function EmployeeProfile() {
-  const [employeeData, setEmployeeData] = useState([]);
-  useEffect(() => {
-    // Fetch data from Firestore and update state
-    const fetchData = async () => {
-      try {
-        const data = await db.collection("users").get();
-        const updatedEmployeeData = data.docs.map((doc) => doc.data());
-        setEmployeeData(updatedEmployeeData);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
-
-    fetchData();
-  }, []); 
   return (
     <div>
-      {employeeData.map((employee) => (
-        <div
-          key={employee.id}
-          className="flex h-[60px] justify-between text-gray-400 mt-3 gap-2 bg-white items-center"
-        >
-          <div className="flex items-center">
-            <img
-              src={employee.profileImageUrl}
-              width={60}
-              className="p-2"
-              alt=""
-            />
-            <div className="flex flex-col">
-              <SubtitleText className="text-black">
-                {employee.fullName}
-              </SubtitleText>
-              {/* Display other user details */}
+      {items.map((elem) => {
+        const { id, image, name } = elem;
+        return (
+          <div
+            key={id}
+            className="flex h-[60px] justify-between text-gray-400 mt-3 gap-2 bg-white items-center"
+          >
+            <div className="flex items-center">
+              <img src={image} width={60} className="p-2" alt="" />
+              <div className="flex flex-col">
+                <SubtitleText className="text-black">{name}</SubtitleText>
+                <TinyText>Electrician</TinyText>
+              </div>
             </div>
+            <BsThreeDotsVertical />
           </div>
-          <BsThreeDotsVertical />
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
